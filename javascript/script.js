@@ -11,12 +11,14 @@ async function getData(){
     const iconSave = "../Images/save.svg";
     const iconDelete = "../Images/delete.svg";
 
+    let newPost = false;
+
     for(let contador = 0; contador < (produtos.length); contador++){
         const {user} = produtos[contador];
         const {first_name, last_name, username, photo} = user;
         const {text} = produtos[contador];
         NewPiu(first_name, last_name, username, photo, text, iconVerify, 
-            iconLike, iconTalk, iconShare, iconSave, iconDelete);
+            iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
     }
 
     //console.log(produtos)
@@ -24,8 +26,9 @@ async function getData(){
 
 getData();
 
+// Novo piu
 function NewPiu(first_name, last_name, username, photo, text, iconVerify, 
-    iconLike, iconTalk, iconShare, iconSave, iconDelete) {
+    iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost) {
     const piuFeed = document.createElement("div");
     const userInformation = document.createElement("div");
     const foto = document.createElement("img");
@@ -41,7 +44,11 @@ function NewPiu(first_name, last_name, username, photo, text, iconVerify,
     const iconSalvar = document.createElement("img");
     const iconDeletar = document.createElement("img");
 
-    foto.src = photo;
+    if (photo == "") {
+        foto.src = "../Images/photo.svg";
+    } else {
+        foto.src = photo;
+    }
     nome.innerText = first_name + " " + last_name;
     iconVerificar.src = iconVerify;
     user.innerText = "@" + username;
@@ -88,14 +95,9 @@ function NewPiu(first_name, last_name, username, photo, text, iconVerify,
     iconBar.appendChild(iconConversar);
     iconBar.appendChild(iconCompartilhar);
 
-    let cont = 0
     iconSalvar.addEventListener("click", () => {
-        if (cont == 0) {
-            piuFeed.classList.add("fixedTop");
-        }
-        else if (cont > 0) {
-            piuFeed.classList.add("fixedTop");
-        }
+        piuWrapper.prepend(piuFeed);
+        piuFeed.classList.add("fixedTop");
     })
     
     iconBar.appendChild(iconSalvar);
@@ -105,21 +107,31 @@ function NewPiu(first_name, last_name, username, photo, text, iconVerify,
     });
 
     iconBar.appendChild(iconDeletar);
+
+    if (newPost) {
+        piuWrapper.prepend(piuFeed);
+    }
 }
 
+//Pegando variáveis do html
+const publicar = document.getElementById("publish");
 
-var publicar = document.getElementById("publish");
-var texto = document.getElementById("texto-publicar");
+const texto = document.getElementById("texto-publicar");
 
-var maxima = 140;
-var resta = document.getElementById("resta");
+const limite = document.getElementById("limit-char");
+
+const maxima = 140;
+
+const resta = document.getElementById("resta");
 
 resta.textContent = maxima;
 
+// Evento digitar piu
 texto.addEventListener("input", () => {
     let digitos = texto.value.length;
-    let saldo = maxima - digitos
-    var mensagem = document.getElementById("message");
+    let saldo = maxima - digitos;
+
+    const mensagem = document.getElementById("message");
 
     if (saldo < 0){
         resta.textContent = 0;
@@ -129,17 +141,32 @@ texto.addEventListener("input", () => {
 
     if (saldo >= 128) {
         mensagem.textContent = "Caracteres insuficientes";
+        mensagem.style.color = "#FD6584";
+        texto.style.color = "#FD6584";
+        limite.style.color = "#FD6584";
     }
     else if (saldo < 0) {
         mensagem.textContent = "Caracteres excedidos";
+        mensagem.style.color = "#FD6584";
+        texto.style.color = "#FD6584";
+        limite.style.color = "#FD6584";
     }
     else {
         mensagem.textContent = "";
+        texto.style.color = "black";
+        limite.style.color = "black";
     }
-    
 });
 
+// Evento Publicar
+
 publicar.addEventListener("click", () => {
+
+    let digitos = texto.value.length;
+    let saldo = maxima - digitos;
+
+    console.log(digitos, saldo);
+
     const first_name = "João";
     const last_name = "Fernandes";
     const username = "joaofernandes_";
@@ -154,11 +181,39 @@ publicar.addEventListener("click", () => {
     const iconSave = "../Images/save.svg";
     const iconDelete = "../Images/delete.svg";
 
-    NewPiu(first_name, last_name, username, photo, text, iconVerify, 
-        iconLike, iconTalk, iconShare, iconSave, iconDelete);
+    let newPost = true;
 
-    document.getElementById("texto-publicar").value = "";
+    if (0 < saldo && saldo < 128) {
+        NewPiu(first_name, last_name, username, photo, text, iconVerify, 
+            iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
 
-    resta.textContent = maxima
-    mensagem.textContent = "";
+        document.getElementById("texto-publicar").value = "";
+
+        resta.textContent = maxima;
+        mensagem.textContent = "";
+        limite.style.color = "black";
+    }
+
 });
+
+// Search function
+
+const searchBar = document.querySelector("#search");
+
+searchBar.addEventListener("keyup", Search);
+
+function Search() {
+    let input = document.querySelector("#search").value.toLowerCase();
+
+    const name = Array.from(document.getElementsByClassName("name"));
+    const user = document.getElementsByClassName("user");
+
+    name.forEach( (name, i) => {
+        if (!(name.innerText.toLowerCase().includes(input) || user[i].innerText.
+        toLowerCase().includes(input))) {
+            name.parentNode.parentNode.classList.add("remover");
+        } else {
+            name.parentNode.parentNode.classList.remove("remover");
+        }
+    });
+}
