@@ -46,6 +46,7 @@ body {
     align-items: center;
     height: 100%;
     width: 100%;
+    overflow-y: scroll;
 }
 
 .wrapper-1 {
@@ -58,12 +59,12 @@ body {
     gap: 40px;
 }
 
-.search, .search-1 {
-    border: 2px solid #E5E5E5;
+.search, .texto-publicar {
+    border: 2px solid #03045E;
     padding: 10px;
     border-radius: 16px;
     font-size: 16px;
-    color: #E5E5E5;
+    color: #000000;
     outline: none;
 }
 
@@ -74,7 +75,6 @@ body {
 .wrapper-2, .wrapper-3 {
     display: flex;
     flex-direction: column;
-    height: 300px;
     width: 100%;
     gap: 16px;
 }
@@ -83,19 +83,28 @@ body {
     border-top: 2px solid #E5E5E5;
     border-bottom: 2px solid #E5E5E5;
     padding: 10px 40px 0px 40px;
+    height: 300px;
 }
 
-.search-1 {
+.texto-publicar {
     width: 100%;
     height: 164px;
 }
 
 .flex-button {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
     padding: 0px 0px 10px 0px;
-    align-items: flex-end;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
+.contador {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .publish {
@@ -110,8 +119,20 @@ body {
 
 .wrapper-3 {
     padding: 0px 40px 0px 40px;
+    margin-bottom: 20px;
     /*border-right: 2px solid #E5E5E5;
     border-left: 2px solid #E5E5E5;*/
+}
+
+.piu-feed {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 2px solid #03045E;
+    border-radius: 16px;
+    padding: 10px;
+    margin-top: 10px;
 }
 
 .user-information {
@@ -123,8 +144,8 @@ body {
 }
 
 .photo {
-    height: 28px;
-    width: 28px;
+    height: 56px;
+    width: 56px;
     border-radius: 50%;
 }
 
@@ -137,7 +158,7 @@ body {
     color: #E5E5E5;
 }
 
-.icon-1 {
+.icon-verify,.icon-like,.icon-talk,.icon-share,.icon-save,.icon-delete {
     height: 16px;
     width: 16px;
 }
@@ -152,4 +173,26 @@ body {
 
 .piu, .icon-bar {
     padding: 0px 40px 0px 40px;
+}
+
+.piu {
+    border: 2px solid #E5E5E5;
+    padding: 10px;
+    border-radius: 16px;
+    font-size: 16px;
+    color: #000000;
+    outline: none;
+    text-align: justify;
+}
+
+.remover {
+    display: none;
+}
+
+.fixedTop {
+    order: -1;
+    border: 2px solid #00BBF9;
+    border-radius: 16px;
+    padding: 10px;
+    margin-top: 10px;
 }
