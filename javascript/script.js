@@ -2,7 +2,7 @@
 async function getData(){
     const response = await fetch("https://api.json-generator.com/templates/BQZ3wDrI6ts0/data?access_token=n7lhzp6uj5oi5goj0h2qify7mi2o8wrmebe3n5ad");
 
-    const produtos = await response.json();
+    const dataPiu = await response.json();
     
     const iconVerify = "../Images/verify.svg";
     const iconLike = "../Images/heart.svg";
@@ -13,15 +13,13 @@ async function getData(){
 
     let newPost = false;
 
-    for(let contador = 0; contador < (produtos.length); contador++){
-        const {user} = produtos[contador];
+    for(let contador = 0; contador < (dataPiu.length); contador++){
+        const {user} = dataPiu[contador];
         const {first_name, last_name, username, photo} = user;
-        const {text} = produtos[contador];
+        const {text} = dataPiu[contador];
         NewPiu(first_name, last_name, username, photo, text, iconVerify, 
             iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
     }
-
-    //console.log(produtos)
 }
 
 getData();
