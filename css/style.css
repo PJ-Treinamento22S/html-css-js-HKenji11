@@ -158,6 +158,7 @@ body {
     height: 56px;
     width: 56px;
     border-radius: 50%;
+    border: 2px solid #03045E;
 }
 
 .name, .user, .my-name, .my-user {
