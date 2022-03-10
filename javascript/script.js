@@ -140,22 +140,18 @@ texto.addEventListener("input", () => {
     }
 
     if (saldo >= 128) {
-        mensagem.textContent = "Caracteres insuficientes";
-        mensagem.style.color = "#FD6584";
         texto.style.color = "#FD6584";
         limite.style.color = "#FD6584";
     }
     else if (saldo < 0) {
-        mensagem.textContent = "Caracteres excedidos";
-        mensagem.style.color = "#FD6584";
         texto.style.color = "#FD6584";
         limite.style.color = "#FD6584";
     }
     else {
-        mensagem.textContent = "";
         texto.style.color = "black";
         limite.style.color = "black";
     }
+    mensagem.textContent = "";
 });
 
 // Evento Publicar
@@ -183,9 +179,23 @@ publicar.addEventListener("click", () => {
 
     let newPost = true;
 
+    if (saldo >= 128) {
+        mensagem.textContent = "Caracteres insuficientes";
+        mensagem.style.color = "#FD6584";
+    }
+    else if (saldo < 0) {
+        mensagem.textContent = "Caracteres excedidos";
+        mensagem.style.color = "#FD6584";
+    }
+
     if (0 < saldo && saldo < 128) {
-        NewPiu(first_name, last_name, username, photo, text, iconVerify, 
-            iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
+        if (text != null) {
+            NewPiu(first_name, last_name, username, photo, text, iconVerify, 
+                iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
+        }
+        else {
+            mensagem.textContent = "Digite caractéres válidos";
+        }
 
         document.getElementById("texto-publicar").value = "";
 
