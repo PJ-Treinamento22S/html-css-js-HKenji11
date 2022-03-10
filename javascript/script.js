@@ -159,8 +159,6 @@ publicar.addEventListener("click", () => {
     let digitos = texto.value.length;
     let saldo = maxima - digitos;
 
-    console.log(digitos, saldo);
-
     const first_name = "João";
     const last_name = "Fernandes";
     const username = "joaofernandes_";
@@ -178,28 +176,43 @@ publicar.addEventListener("click", () => {
     let newPost = true;
 
     if (saldo >= 128) {
-        mensagem.textContent = "Caracteres insuficientes";
+
         mensagem.style.color = "#FD6584";
+
+        if (text.trim() === "") {
+            mensagem.textContent = "Não digite só espaços!";
+        }
+        else {
+            mensagem.textContent = "Caracteres insuficientes";
+        }
     }
     else if (saldo < 0) {
-        mensagem.textContent = "Caracteres excedidos";
+        
         mensagem.style.color = "#FD6584";
+
+        if (text.trim() === "") {
+            mensagem.textContent = "Não digite só espaços!";
+        }
+        else {
+            mensagem.textContent = "Caracteres insuficientes";
+        }
     }
 
     if (0 < saldo && saldo < 128) {
-        if (text != null) {
+        if (text.trim() !== "") {
             NewPiu(first_name, last_name, username, photo, text, iconVerify, 
                 iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
-        }
+            console.log(text)
+            document.getElementById("texto-publicar").value = "";
+
+            resta.textContent = maxima;
+            mensagem.textContent = "";
+            limite.style.color = "black";
+    }
         else {
-            mensagem.textContent = "Digite caractéres válidos";
+            mensagem.textContent = "Não digite só espaços!";
+            mensagem.style.color = "#FD6584";
         }
-
-        document.getElementById("texto-publicar").value = "";
-
-        resta.textContent = maxima;
-        mensagem.textContent = "";
-        limite.style.color = "black";
     }
 
 });
