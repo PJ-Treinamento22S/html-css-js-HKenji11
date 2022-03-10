@@ -187,7 +187,7 @@ publicar.addEventListener("click", () => {
         }
     }
     else if (saldo < 0) {
-        
+
         mensagem.style.color = "#FD6584";
 
         if (text.trim() === "") {
@@ -200,9 +200,10 @@ publicar.addEventListener("click", () => {
 
     if (0 < saldo && saldo < 128) {
         if (text.trim() !== "") {
+
             NewPiu(first_name, last_name, username, photo, text, iconVerify, 
                 iconLike, iconTalk, iconShare, iconSave, iconDelete, newPost);
-            console.log(text)
+
             document.getElementById("texto-publicar").value = "";
 
             resta.textContent = maxima;
